@@ -106,6 +106,7 @@ always @(posedge clkout) begin
     end
     else begin
         if(enable == 1) begin
+            if(error == 0 && error_not_1_times == 0 && error_not_5_digits == 0) begin
             if(sw[5] == 0) begin
                 display_data <= {times, 8'b0, data};
                 case(pos)
@@ -123,6 +124,7 @@ always @(posedge clkout) begin
                     0: begin times <= sw[3:0]; state <= 16'b01_00_00_10_10_10_10_10; end
                     1: begin state <= 16'b10_00_00_10_10_10_10_10; end
                 endcase
+            end
             end
             if(sw4_posedge_detected == 1) begin
                 if(sw[5] == 0) begin
